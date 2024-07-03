@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMR計算（ハリス・ベネディクト方式）</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        max-width: 400px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .input-group {
+        margin-bottom: 15px;
+    }
+    .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+    .input-group input,
+    .input-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    .calculate-btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .calculate-btn:hover {
+        background-color: #45a049;
+    }
+    .result {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        text-align: center;
+        font-size: 18px;
+        color: #333;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>BMR計算（ハリス・ベネディクト方式）</h2>
+    <div class="input-group">
+        <label for="gender">性別</label>
+        <select id="gender">
+            <option value="male">男性</option>
+            <option value="female">女性</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <label for="age">年齢（歳）</label>
+        <input type="number" id="age">
+    </div>
+    <div class="input-group">
+        <label for="weight">体重（kg）</label>
+        <input type="number" id="weight">
+    </div>
+    <div class="input-group">
+        <label for="height">身長（cm）</label>
+        <input type="number" id="height">
+    </div>
+    <button class="calculate-btn" onclick="calculateBMR()">計算する</button>
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+function calculateBMR() {
+    var gender = document.getElementById("gender").value;
+    var age = parseInt(document.getElementById("age").value);
+    var weight = parseFloat(document.getElementById("weight").value);
+    var height = parseFloat(document.getElementById("height").value);
+
+    if (isNaN(age) || isNaN(weight) || isNaN(height)) {
+        alert("年齢、体重、身長を正しく入力してください。");
+        return;
+    }
+
+    var bmr;
+    if (gender === "male") {
+        bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    } else if (gender === "female") {
+        bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+
+    document.getElementById("result").innerHTML = "<h3>基礎代謝量（BMR）は " + bmr.toFixed(2) + " kcal/日です。</h3>";
+}
+</script>
+
+</body>
+</html>
